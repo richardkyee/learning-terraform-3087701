@@ -59,7 +59,7 @@ module "blog_autoscaling" {
 
 module "blog_alb" {
   source  = "terraform-aws-modules/alb/aws"
-  version = "~>6.0"
+  version = "~> 8.0"
 
   name = "blog-alb"
 
@@ -94,7 +94,7 @@ module "blog_alb" {
 
 module "blog_sg" {
   source  = "terraform-aws-modules/security-group/aws"
-  version = "4.13.2"
+  version = "4.13.0"
 
   name    = "blog" 
 
