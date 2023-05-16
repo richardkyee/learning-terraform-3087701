@@ -43,7 +43,7 @@ resource "aws_instance" "blog" {
   }
 }
 
-module "alb" {
+module "blog_alb" {
   source  = "terraform-aws-modules/alb/aws"
   version = "~> 8.0"
 
@@ -62,16 +62,6 @@ module "alb" {
       backend_protocol = "HTTP"
       backend_port     = 80
       target_type      = "instance"
-      targets = {
-        my_target = {
-          target_id = "i-0123456789abcdefg"
-          port = 80
-        }
-        my_other_target = {
-          target_id = "aws_instance.blog.id"
-          port = 80
-        }
-      }
     }
   ]
 
@@ -93,7 +83,8 @@ module "blog_sg" {
   version = "4.17.2"
 
   name    = "blog" 
-  vpc_id = module.blog_vpc.public_subnets[0]
+
+  vpc_id = module.blog_vpc.vpc_id
 
   ingress_rules = ["http-80-tcp", "https-443-tcp"]
   ingress_cidr_blocks = ["0.0.0.0/0"]
